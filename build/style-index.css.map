@@ -1,0 +1,1 @@
+{"version":3,"file":"./style-index.css","mappings":";;;AAAA;;;EAAA;AAOC;EACC;AAFF,C","sources":["webpack://viewdev-map-block/./src/style.scss"],"sourcesContent":["/**\n * The following styles get applied both on the front of your site\n * AND in the editor.\n */\n\n.wp-block-vwd-map-container {\n\n\t&.has-background {\n\t\tpadding: 15px;\n\t}\n}\n"],"names":[],"sourceRoot":""}

@@ -1,1 +1,21 @@
-.wp-block-create-block-viewdev-map-block{border:1px dotted red}
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/editor.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied inside the editor only.
+ */
+.wp-block[data-type="vwd-map/basic-google-map"].has-background .wp-block-vwd-map-container {
+  padding: 15px;
+}
+.wp-block[data-type="vwd-map/basic-google-map"].has-background .wp-block-vwd-map-container p {
+  margin-top: 0;
+}
+
+.vwd-map-address-input {
+  max-width: 80%;
+  width: 250px;
+  height: 3rem;
+  padding: 0.5rem;
+}
+
+/*# sourceMappingURL=index.css.map*/
