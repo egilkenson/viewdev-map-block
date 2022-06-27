@@ -28,3 +28,7 @@ node_modules/
 
 # dotenv environment variables file
 .env
+/.idea/viewdev-map-block.iml
+/.idea/.gitignore
+/.idea/modules.xml
+/.idea/vcs.xml
