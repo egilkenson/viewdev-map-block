@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "view-dev/map-block",
+  "version": "0.1.0",
+  "title": "ViewDev Map Block",
+  "category": "widgets",
+  "icon": "location-alt",
+  "description": "Basic Google Map Block",
+  "supports": {
+	"html": false,
+	"align": [
+	  "full"
+	],
+	"anchor": true
+  },
+  "attributes": {
+	"lat": {
+	  "type": "number",
+	  "default": 43.1249
+	},
+	"lng": {
+	  "type": "number",
+	  "default": -72.2784
+	},
+	"formatted_address": {
+	  "type": "string",
+	  "default": null
+	},
+	"zoom": {
+	  "type": "number",
+	  "default": 10
+	},
+	"height": {
+	  "type": "number",
+	  "default": 350
+	},
+	"zoomControl": {
+	  "type": "boolean",
+	  "default": false
+	}
+  },
+  "textdomain": "viewdev-map-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}
