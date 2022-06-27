@@ -1,21 +1,26 @@
-const Save = ( props ) => {
-	const { className, attributes } = props;
-	const style = { height: `${ attributes.height }px` };
+import { useBlockProps } from '@wordpress/block-editor'
 
-	if ( attributes.formatted_address === null ) {
-		return null;
+const Save = (props) => {
+	const { className, attributes } = props
+	const style = { height: `${attributes.height}px` }
+	const blockProps = useBlockProps.save({
+		className,
+		style,
+	})
+
+	if (attributes.formatted_address === null) {
+		return null
 	}
 	return (
 		<div
-			className={ className }
-			data-lng={ attributes.lng }
-			data-lat={ attributes.lat }
-			data-zoom={ attributes.zoom }
-			data-zoomcontrol={ attributes.zoomControl }
+			{...blockProps}
+			data-lng={attributes.lng}
+			data-lat={attributes.lat}
+			data-zoom={attributes.zoom}
+			data-zoomcontrol={attributes.zoomControl}
 			data-target="vwd-map-div"
-			style={ style }
 		/>
-	);
-};
+	)
+}
 
-export default Save;
+export default Save

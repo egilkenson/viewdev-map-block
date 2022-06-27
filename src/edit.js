@@ -38,8 +38,10 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-const Edit = ( props ) => {
-	const { className, attributes, setAttributes } = props;
+const Edit = ({ attributes, setAttributes } ) => {
+	const blockProps = useBlockProps({
+		className: 'viewdev-map-block',
+	})
 	const style = {
 		height: 350,
 		display: 'flex',
@@ -50,7 +52,7 @@ const Edit = ( props ) => {
 
 	return (
 		<>
-			<div className={ className }>
+			<div {...blockProps}>
 				{ attributes.formatted_address === null ? (
 					<div style={ style }>
 						<PlacesAutocomplete
