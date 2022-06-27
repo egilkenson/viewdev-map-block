@@ -1,34 +1,21 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
+const Save = ( props ) => {
+	const { className, attributes } = props;
+	const style = { height: `${ attributes.height }px` };
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
- */
-import { useBlockProps } from '@wordpress/block-editor';
-
-/**
- * The save function defines the way in which the different attributes should
- * be combined into the final markup, which is then serialized by the block
- * editor into `post_content`.
- *
- * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#save
- *
- * @return {WPElement} Element to render.
- */
-export default function save() {
+	if ( attributes.formatted_address === null ) {
+		return null;
+	}
 	return (
-		<p { ...useBlockProps.save() }>
-			{ __(
-				'Viewdev Map Block – hello from the saved content!',
-				'viewdev-map-block'
-			) }
-		</p>
+		<div
+			className={ className }
+			data-lng={ attributes.lng }
+			data-lat={ attributes.lat }
+			data-zoom={ attributes.zoom }
+			data-zoomcontrol={ attributes.zoomControl }
+			data-target="vwd-map-div"
+			style={ style }
+		/>
 	);
-}
+};
+
+export default Save;
