@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Register a setting to hold the Google Maps API key.
+ * Register a setting, field and section to hold the Google Maps API key.
+ *
+ * @return void
  */
 function viewdev_map_block_register_settings() {
 	register_setting(
@@ -31,38 +33,66 @@ function viewdev_map_block_register_settings() {
 }
 add_action( 'admin_init', 'viewdev_map_block_register_settings' );
 
+/**
+ * Heading text for the API section.
+ *
+ * @return void
+ */
 function viewdev_map_block_api_fields() {
 	echo '<p>' . __( 'Enter your Google Maps API key here. This is required for the Google Maps API to work.', 'viewdev_map_block' ) . '</p>';
 }
 
+/**
+ * Input for the Google Maps API key.
+ *
+ * @return void
+ */
 function viewdev_map_block_google_maps_api_field() {
 	echo '<input style="width: 40ch;" type="text" name="viewdev_map_block_plugin_google_maps_api" value="' . esc_attr( get_option( 'viewdev_map_block_plugin_google_maps_api' ) ) . '" />';
 }
 
+/**
+ * Callback for the settings page.
+ *
+ * @return void
+ */
 function viewdev_map_block_settings_page() {
+	?>
+	<div class="wrap">
+		<h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
+		<form action="options.php" method="post">
+			<?php settings_fields( 'viewdev_map_block_plugin_settings' ); ?>
+			<?php do_settings_sections( 'viewdev_map_block_settings' ); ?>
+			<?php submit_button(); ?>
+		</form>
+	</div>
+	<?php
+}
+
+/**
+ * Register a settings page for the plugin.
+ *
+ * @return void
+ */
+function viewdev_map_block_register_settings_page() {
 	add_options_page(
 		__( 'ViewDev Map Block Settings', 'viewdev_map_block' ),
 		__( 'ViewDev Map Block', 'viewdev_map_block' ),
 		'manage_options',
 		'viewdev_map_block_settings',
-		function() {
-			?>
-			<div id="viewdev-map-block-settings" class="wrap">
-				<h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
-
-				<form method="post" action="options.php">
-					<?php settings_fields('viewdev_map_block_plugin_settings'); ?>
-					<?php do_settings_sections('viewdev_map_block_settings') ?>
-					<?php submit_button(); ?>
-				</form>
-			</div>
-			<?php
-		},
+		'viewdev_map_block_settings_page',
 	);
 }
-add_action( 'admin_menu', 'viewdev_map_block_settings_page', 10 );
+add_action( 'admin_menu', 'viewdev_map_block_register_settings_page', 10 );
 
-function viewdev_map_block_settings_link( $links ) : array {
+/**
+ * Add a link to the settings on the plugin page.
+ *
+ * @param array $links
+ *
+ * @return array the links array with the settings link added.
+ */
+function viewdev_map_block_settings_link( array $links ) : array {
 	$label = esc_html__( 'Settings', 'viewdev_map_block' );
 	$slug  = 'viewdev_map_block_settings';
 
