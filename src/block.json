@@ -10,7 +10,9 @@
   "supports": {
 	"html": false,
 	"align": [
-	  "full"
+	  "full",
+	  "wide",
+	  "center"
 	],
 	"anchor": true
   },
