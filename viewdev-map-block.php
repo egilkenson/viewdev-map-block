@@ -4,7 +4,7 @@
  * Description:       Example static block scaffolded with Create Block tool.
  * Requires at least: 5.9
  * Requires PHP:      7.4
- * Version:           0.1.0
+ * Version:           0.2.0
  * Author:            Eben Gilkenson
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,7 +13,7 @@
  * @package           viewdev-map-block
  */
 
-const VIEWDEV_MAP_VERSION = '0.1.0';
+const VIEWDEV_MAP_VERSION = '0.2.0';
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.

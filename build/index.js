@@ -41,12 +41,14 @@ const MapDisplay = props => {
     gestureHandling: 'cooperative'
   };
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    // eslint-disable-next-line no-undef
     const map = new google.maps.Map(mapDiv.current, mapOptions);
     map.addListener('zoom_changed', () => {
       props.update({
         zoom: map.getZoom()
       });
-    });
+    }); // eslint-disable-next-line no-undef
+
     const marker = new google.maps.Marker({
       map,
       position,
@@ -85,35 +87,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class PlacesAutocomplete extends (react__WEBPACK_IMPORTED_MODULE_1___default().Component) {
-  constructor(props) {
-    super(props);
-    this.mapInput = react__WEBPACK_IMPORTED_MODULE_1___default().createRef();
-  }
+const PlacesAutocomplete = props => {
+  const mapInput = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    const input = mapInput.current; // eslint-disable-next-line no-undef
 
-  componentDidMount() {
-    const input = this.mapInput.current;
     const dropdown = new google.maps.places.Autocomplete(input);
     dropdown.addListener('place_changed', () => {
       const place = dropdown.getPlace();
       if (!place.geometry) return;
-      this.props.update({
+      props.update({
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
         formatted_address: place.formatted_address
       });
     });
-  }
-
-  render() {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-      className: "components-text-control__input",
-      ref: this.mapInput,
-      placeholder: this.props.attributes.formatted_address
-    }));
-  }
-
-}
+  }, [mapInput]);
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    className: "components-text-control__input",
+    ref: mapInput,
+    placeholder: props.attributes.formatted_address
+  }));
+};
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlacesAutocomplete);
 
@@ -177,7 +172,9 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#edit
  *
- * @param { Object } props
+ * @param {Object}   props               Properties passed from the editor.
+ * @param {Object}   props.attributes    The attributes of the block.
+ * @param {Function} props.setAttributes Sets attributes of the block.
  *
  * @return {WPElement} Element to render.
  */
@@ -207,13 +204,13 @@ const Edit = _ref => {
     attributes: attributes,
     update: setAttributes
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
-    title: "Map Location",
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Map Location'),
     initialOpen: true
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_PlacesAutocomplete__WEBPACK_IMPORTED_MODULE_4__["default"], {
     update: setAttributes,
     attributes: attributes
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
-    title: "Map Options",
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Map Options'),
     initialOpen: false
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
     label: "Height",
@@ -224,7 +221,7 @@ const Edit = _ref => {
     min: 100,
     max: 1000
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
-    label: "Zoom Buttons",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Zoom Buttons'),
     checked: attributes.zoomControl,
     onChange: () => {
       setAttributes({
@@ -317,6 +314,11 @@ const Save = props => {
     className,
     attributes
   } = props;
+
+  if (attributes.formatted_address === null) {
+    return null;
+  }
+
   const style = {
     height: `${attributes.height}px`
   };
@@ -324,11 +326,6 @@ const Save = props => {
     className,
     style
   });
-
-  if (attributes.formatted_address === null) {
-    return null;
-  }
-
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, blockProps, {
     "data-lng": attributes.lng,
     "data-lat": attributes.lat,
@@ -461,7 +458,7 @@ function _extends() {
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"view-dev/map-block","version":"0.1.0","title":"ViewDev Map Block","category":"widgets","icon":"location-alt","description":"Basic Google Map Block","supports":{"html":false,"align":["full"],"anchor":true},"attributes":{"lat":{"type":"number","default":43.1249},"lng":{"type":"number","default":-72.2784},"formatted_address":{"type":"string","default":null},"zoom":{"type":"number","default":10},"height":{"type":"number","default":350},"zoomControl":{"type":"boolean","default":false}},"textdomain":"viewdev-map-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"view-dev/map-block","version":"0.2.0","title":"ViewDev Map Block","category":"widgets","icon":"location-alt","description":"Basic Google Map Block","supports":{"html":false,"align":["full","wide","center"],"anchor":true},"attributes":{"lat":{"type":"number","default":43.1249},"lng":{"type":"number","default":-72.2784},"formatted_address":{"type":"string","default":null},"zoom":{"type":"number","default":10},"height":{"type":"number","default":350},"zoomControl":{"type":"boolean","default":false}},"textdomain":"viewdev-map-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
 
 /***/ })
 
