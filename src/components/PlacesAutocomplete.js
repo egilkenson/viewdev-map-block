@@ -1,36 +1,32 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-class PlacesAutocomplete extends React.Component {
-	constructor( props ) {
-		super( props );
-		this.mapInput = React.createRef();
-	}
+const PlacesAutocomplete = ( props ) => {
+	const mapInput = useRef( null );
 
-	componentDidMount() {
-		const input = this.mapInput.current;
+	useEffect( () => {
+		const input = mapInput.current;
+		// eslint-disable-next-line no-undef
 		const dropdown = new google.maps.places.Autocomplete( input );
 		dropdown.addListener( 'place_changed', () => {
 			const place = dropdown.getPlace();
 			if ( ! place.geometry ) return;
-			this.props.update( {
+			props.update( {
 				lat: place.geometry.location.lat(),
 				lng: place.geometry.location.lng(),
 				formatted_address: place.formatted_address,
 			} );
 		} );
-	}
+	}, [ mapInput ] );
 
-	render() {
-		return (
-			<>
-				<input
-					className="components-text-control__input"
-					ref={ this.mapInput }
-					placeholder={ this.props.attributes.formatted_address }
-				/>
-			</>
-		);
-	}
-}
+	return (
+		<>
+			<input
+				className="components-text-control__input"
+				ref={ mapInput }
+				placeholder={ props.attributes.formatted_address }
+			/>
+		</>
+	);
+};
 
 export default PlacesAutocomplete;
