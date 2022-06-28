@@ -34,14 +34,16 @@ import './editor.scss';
  *
  * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#edit
  *
- * @param { Object } props
+ * @param {Object}   props               Properties passed from the editor.
+ * @param {Object}   props.attributes    The attributes of the block.
+ * @param {Function} props.setAttributes Sets attributes of the block.
  *
  * @return {WPElement} Element to render.
  */
-const Edit = ({ attributes, setAttributes } ) => {
-	const blockProps = useBlockProps({
+const Edit = ( { attributes, setAttributes } ) => {
+	const blockProps = useBlockProps( {
 		className: 'viewdev-map-block',
-	})
+	} );
 	const style = {
 		height: 350,
 		display: 'flex',
@@ -52,7 +54,7 @@ const Edit = ({ attributes, setAttributes } ) => {
 
 	return (
 		<>
-			<div {...blockProps}>
+			<div { ...blockProps }>
 				{ attributes.formatted_address === null ? (
 					<div style={ style }>
 						<PlacesAutocomplete
@@ -70,13 +72,13 @@ const Edit = ({ attributes, setAttributes } ) => {
 			</div>
 
 			<InspectorControls>
-				<PanelBody title="Map Location" initialOpen={ true }>
+				<PanelBody title={ __( 'Map Location' ) } initialOpen={ true }>
 					<PlacesAutocomplete
 						update={ setAttributes }
 						attributes={ attributes }
 					/>
 				</PanelBody>
-				<PanelBody title="Map Options" initialOpen={ false }>
+				<PanelBody title={ __( 'Map Options' ) } initialOpen={ false }>
 					<RangeControl
 						label="Height"
 						value={ attributes.height }
@@ -85,7 +87,7 @@ const Edit = ({ attributes, setAttributes } ) => {
 						max={ 1000 }
 					/>
 					<ToggleControl
-						label="Zoom Buttons"
+						label={ __( 'Zoom Buttons' ) }
 						checked={ attributes.zoomControl }
 						onChange={ () => {
 							setAttributes( {
