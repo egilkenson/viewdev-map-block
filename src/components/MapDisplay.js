@@ -16,12 +16,14 @@ const MapDisplay = ( props ) => {
 	};
 
 	useEffect( () => {
+		// eslint-disable-next-line no-undef
 		const map = new google.maps.Map( mapDiv.current, mapOptions );
 		map.addListener( 'zoom_changed', () => {
 			props.update( {
 				zoom: map.getZoom(),
 			} );
 		} );
+		// eslint-disable-next-line no-undef
 		const marker = new google.maps.Marker( {
 			map,
 			position,
